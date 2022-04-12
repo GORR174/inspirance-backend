@@ -1,0 +1,29 @@
+spring.application.name: inspirance-backend
+
+logging:
+  file:
+    name: inspirance-backend.log
+  logback:
+    rollingpolicy:
+      max-history: 5
+      max-file-size: 10MB
+
+server:
+  port: 8102
+  servlet:
+    context-path: /api
+
+spring:
+  boot:
+    admin.client:
+      url: http://localhost:8084
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+management:
+  endpoints:
+    web.exposure:
+      include: "health,logfile,info"
+  endpoint:
+    health.show-details: always
