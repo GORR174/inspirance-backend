@@ -17,6 +17,15 @@ spring:
   boot:
     admin.client:
       url: http://localhost:8084
+  datasource:
+    url: ${INSPIRANCE_DATASOURCE_URL:jdbc:postgresql://localhost:5432/inspirance}
+    username: ${INSPIRANCE_DATASOURCE_USERNAME:inprnc}
+    password: ${INSPIRANCE_DATASOURCE_PASSWORD:inprnc1}
+  jpa:
+    properties.hibernate:
+      jdbc.lob.non_contextual_creation: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: update
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
