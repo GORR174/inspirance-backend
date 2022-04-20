@@ -1,37 +1,30 @@
 package net.catstack.inspirance.controller.impl;
 
+import lombok.RequiredArgsConstructor;
 import net.catstack.inspirance.controller.TestController;
-import net.catstack.inspirance.domain.MessageModel;
+import net.catstack.inspirance.domain.dto.request.SendMessageRequestDTO;
+import net.catstack.inspirance.domain.dto.response.AdapterResponse;
+import net.catstack.inspirance.domain.model.MessageModel;
+import net.catstack.inspirance.service.MessageService;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class TestControllerImpl implements TestController {
-    private final ArrayList<MessageModel> messages = new ArrayList<>();
+    private final MessageService messageService;
 
-    @PostConstruct
-    private void init() {
-        MessageModel messageModel = new MessageModel();
-        messageModel.setText("test");
-        messageModel.setDate("12.12.2022");
-        messages.add(messageModel);
-        messageModel = new MessageModel();
-        messageModel.setText("another test");
-        messageModel.setDate("01.10.2021");
-        messages.add(messageModel);
+    @Override
+    public AdapterResponse<List<MessageModel>> getMessages() {
+        return new AdapterResponse<>(messageService.getMessages());
     }
 
     @Override
-    public List<MessageModel> getMessages() {
-        return messages;
-    }
+    public AdapterResponse<String> sendMessage(@Valid final SendMessageRequestDTO request) {
 
-    @Override
-    public String sendMessage(MessageModel message) {
-        messages.add(message);
-        return "Ok";
+        messageService.sendMessage(request);
+        return new AdapterResponse<>("Ok");
     }
 }
