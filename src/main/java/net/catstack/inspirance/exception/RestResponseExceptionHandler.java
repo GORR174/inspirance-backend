@@ -1,31 +1,32 @@
 package net.catstack.inspirance.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import net.catstack.inspirance.domain.dto.response.AdapterError;
 import net.catstack.inspirance.domain.dto.response.AdapterResponse;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
+@Slf4j
 public class RestResponseExceptionHandler {
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<AdapterResponse> handle(Exception e) {
-        System.out.println("EXCEPTION!");
+        log.info("Exception: " + e.toString());
         var response = new AdapterResponse<>();
 
         response.setStatus(1);
-        response.setError(new AdapterError(1, "Internal server error"));
+        response.setError(new AdapterError(1, "Internal server error: " + e));
 
         return ResponseEntity.ok(response);
     }
 
-//    @Override
-//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-//        return ResponseEntity.ok(AdapterResponse.fromException(new ValidationException()));
-//    }
+    @ExceptionHandler(value = { BaseServiceException.class })
+    public ResponseEntity<AdapterResponse> handle(BaseServiceException e) {
+        log.info("Exception: " + e.toString());
+
+        var response = AdapterResponse.fromException(e);
+
+        return ResponseEntity.ok(response);
+    }
 }

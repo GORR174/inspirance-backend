@@ -23,7 +23,6 @@ public class TestControllerImpl implements TestController {
 
     @Override
     public AdapterResponse<String> sendMessage(@Valid final SendMessageRequestDTO request) {
-
         messageService.sendMessage(request);
         return new AdapterResponse<>("Ok");
     }
