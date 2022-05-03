@@ -20,16 +20,22 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
     @Override
     public AdapterResponse<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO) {
+        log.info("Register User: Register request: Username: {}", requestDTO.getUsername());
         var user = authenticationService.register(requestDTO);
 
         var response = new RegisterResponseDTO();
         response.setMessage("User " + user.getUsername() + " successfully registered!");
+
+        log.info("Register User: Register response: {}", response);
 
         return new AdapterResponse<>(response);
     }
 
     @Override
     public AdapterResponse<LoginResponseDTO> login(@RequestBody LoginRequestDTO requestDTO) {
-        return new AdapterResponse<>(authenticationService.loginAndGetToken(requestDTO));
+        log.info("Login User: Trying login with username: {}", requestDTO.getUsername());
+        var loginResponse = authenticationService.loginAndGetToken(requestDTO);
+        log.info("Login User: User '{}' login successful", requestDTO.getUsername());
+        return new AdapterResponse<>(loginResponse);
     }
 }
