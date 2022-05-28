@@ -6,7 +6,7 @@ import net.catstack.inspirance.domain.dto.request.LoginRequestDTO;
 import net.catstack.inspirance.domain.dto.request.RegisterRequestDTO;
 import net.catstack.inspirance.domain.dto.response.LoginResponseDTO;
 import net.catstack.inspirance.domain.model.Role;
-import net.catstack.inspirance.domain.model.User;
+import net.catstack.inspirance.domain.model.UserModel;
 import net.catstack.inspirance.exception.LoginException;
 import net.catstack.inspirance.exception.UserAlreadyExistsException;
 import net.catstack.inspirance.repository.RoleRepository;
@@ -52,7 +52,7 @@ public class AuthenticationService {
         }
     }
 
-    public User register(final RegisterRequestDTO requestDTO) {
+    public UserModel register(final RegisterRequestDTO requestDTO) {
         if (userService.getByUsername(requestDTO.getUsername().toLowerCase()) != null) {
             throw new UserAlreadyExistsException(requestDTO.getUsername());
         }
@@ -60,7 +60,7 @@ public class AuthenticationService {
         var userRoles = new HashSet<Role>();
         userRoles.add(roleUser);
 
-        var user = new User();
+        var user = new UserModel();
         user.setUsername(requestDTO.getUsername().toLowerCase());
         user.setFirstName(requestDTO.getFirstName());
         user.setEmail(requestDTO.getEmail());

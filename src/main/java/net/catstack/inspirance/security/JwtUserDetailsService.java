@@ -23,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
 
         var jwtUser = JwtUserFactory.create(user);
-        log.info("Load by username: user with username {} successfully loaded", user);
+        log.info("Load by username: user with username {} successfully loaded", username);
 
         return jwtUser;
     }
