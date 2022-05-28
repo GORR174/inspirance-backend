@@ -38,4 +38,9 @@ public class UserService {
         log.info("Get user '{}' from DB", user.getUsername());
         return user;
     }
+
+    public UserModel saveUserModel(final UserModel userModel) {
+        log.info("Saving user `{}` model to DB", userModel.getUsername());
+        return repository.save(userModel);
+    }
 }
