@@ -2,8 +2,10 @@ package net.catstack.inspirance.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.catstack.inspirance.domain.model.User;
+import net.catstack.inspirance.domain.model.UserModel;
 import net.catstack.inspirance.repository.UserRepository;
+import net.catstack.inspirance.security.JwtUser;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +16,26 @@ import java.util.List;
 public class UserService {
     private final UserRepository repository;
 
-    public List<User> getAll() {
+    public List<UserModel> getAll() {
         return repository.findAll();
     }
 
-    public User getByUsername(final String username) {
+    public UserModel getByUsername(final String username) {
         log.info("Get by username: Trying to get {} user", username);
         return repository.findByUsername(username);
     }
 
-    public User getById(final Long id) {
+    public UserModel getById(final Long id) {
         log.info("Get by id: Trying to get user with id: {}", id);
         return repository.getById(id);
+    }
+
+    public UserModel getCurrentUser() {
+        log.info("Get current user: Trying to get current user...");
+        var jwtUser = ((JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        log.info("Get jwtUser: {}", jwtUser.getUsername());
+        var user = getByUsername(jwtUser.getUsername());
+        log.info("Get user '{}' from DB", user.getUsername());
+        return user;
     }
 }

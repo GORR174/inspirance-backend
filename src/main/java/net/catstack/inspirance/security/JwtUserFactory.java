@@ -1,7 +1,7 @@
 package net.catstack.inspirance.security;
 
 import net.catstack.inspirance.domain.model.Role;
-import net.catstack.inspirance.domain.model.User;
+import net.catstack.inspirance.domain.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -10,15 +10,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class JwtUserFactory {
-    public static JwtUser create(final User user) {
+    public static JwtUser create(final UserModel userModel) {
         var jwtUser = new JwtUser();
 
-        jwtUser.setId(user.getId());
-        jwtUser.setUsername(user.getUsername());
-        jwtUser.setPassword(user.getPassword());
-        jwtUser.setEmail(user.getEmail());
-        jwtUser.setFirstName(user.getFirstName());
-        jwtUser.setAuthorities(mapToGrantedAuthorities(user.getRoles()));
+        jwtUser.setId(userModel.getId());
+        jwtUser.setUsername(userModel.getUsername());
+        jwtUser.setPassword(userModel.getPassword());
+        jwtUser.setEmail(userModel.getEmail());
+        jwtUser.setFirstName(userModel.getFirstName());
+        jwtUser.setAuthorities(mapToGrantedAuthorities(userModel.getRoles()));
 
         return jwtUser;
     }

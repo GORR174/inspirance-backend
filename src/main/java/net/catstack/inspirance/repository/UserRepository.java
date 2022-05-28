@@ -1,8 +1,8 @@
 package net.catstack.inspirance.repository;
 
-import net.catstack.inspirance.domain.model.User;
+import net.catstack.inspirance.domain.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+public interface UserRepository extends JpaRepository<UserModel, Long> {
+    UserModel findByUsername(String username);
 }
