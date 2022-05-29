@@ -1,4 +1,4 @@
-package net.catstack.inspirance.domain.dto.response;
+package net.catstack.inspirance.domain.dto.response.tasks;
 
 import lombok.Data;
 

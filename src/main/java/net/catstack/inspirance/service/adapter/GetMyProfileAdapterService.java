@@ -2,8 +2,8 @@ package net.catstack.inspirance.service.adapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.catstack.inspirance.domain.dto.response.AwardResponseDTO;
-import net.catstack.inspirance.domain.dto.response.GetMyProfileResponseDTO;
+import net.catstack.inspirance.domain.dto.response.awards.AwardResponseDTO;
+import net.catstack.inspirance.domain.dto.response.profile.GetMyProfileResponseDTO;
 import net.catstack.inspirance.domain.model.AwardModel;
 import net.catstack.inspirance.domain.model.UserModel;
 import net.catstack.inspirance.service.UserService;

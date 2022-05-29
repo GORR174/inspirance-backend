@@ -1,6 +1,7 @@
-package net.catstack.inspirance.domain.dto.response;
+package net.catstack.inspirance.domain.dto.response.profile;
 
 import lombok.Data;
+import net.catstack.inspirance.domain.dto.response.awards.AwardResponseDTO;
 
 import java.util.List;
 

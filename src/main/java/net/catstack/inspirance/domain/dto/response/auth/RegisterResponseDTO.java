@@ -1,4 +1,4 @@
-package net.catstack.inspirance.domain.dto.response;
+package net.catstack.inspirance.domain.dto.response.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

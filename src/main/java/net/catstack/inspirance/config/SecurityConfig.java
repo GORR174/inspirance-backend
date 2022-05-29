@@ -20,6 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ADMIN_ENDPOINT = "/v1/admin/**";
     private static final String LOGIN_ENDPOINT = "/v1/auth/login";
+    private static final String CATEGORIES_ENDPOINT = "/v1/task/getCategories";
+    private static final String THEMES_ENDPOINT = "/v1/task/getThemes";
     private static final String REGISTER_ENDPOINT = "/v1/auth/register";
 
     @Bean
@@ -45,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/webjars/**").permitAll()
                     .antMatchers("/actuator/**").permitAll()
                     .antMatchers(LOGIN_ENDPOINT, REGISTER_ENDPOINT).permitAll()
+                    .antMatchers(CATEGORIES_ENDPOINT, THEMES_ENDPOINT).permitAll()
                     .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest()
                     .authenticated()

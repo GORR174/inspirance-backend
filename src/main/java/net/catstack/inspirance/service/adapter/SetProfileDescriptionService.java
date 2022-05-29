@@ -2,8 +2,8 @@ package net.catstack.inspirance.service.adapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.catstack.inspirance.domain.dto.request.SetProfileDescriptionRequestDTO;
-import net.catstack.inspirance.domain.dto.response.SetProfileDescriptionResponseDTO;
+import net.catstack.inspirance.domain.dto.request.profile.SetProfileDescriptionRequestDTO;
+import net.catstack.inspirance.domain.dto.response.profile.SetProfileDescriptionResponseDTO;
 import net.catstack.inspirance.service.UserService;
 import org.springframework.stereotype.Service;
 
