@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class CreateTaskResponseDTO {
-    private Integer taskId;
+    private Long taskId;
 }

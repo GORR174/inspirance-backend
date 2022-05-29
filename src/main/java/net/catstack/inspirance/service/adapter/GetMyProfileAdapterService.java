@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.catstack.inspirance.domain.dto.response.awards.AwardResponseDTO;
 import net.catstack.inspirance.domain.dto.response.profile.GetMyProfileResponseDTO;
 import net.catstack.inspirance.domain.model.AwardModel;
+import net.catstack.inspirance.domain.model.RoleModel;
 import net.catstack.inspirance.domain.model.UserModel;
 import net.catstack.inspirance.service.UserService;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class GetMyProfileAdapterService {
         dto.setLikes(666); // TODO: set likes
         dto.setFollowersCount(userModel.getFollowers().size());
         dto.setFollowingCount(userModel.getFollowing().size());
+        dto.setRoles(userModel.getRoles().stream().map(RoleModel::getName).collect(Collectors.toSet()));
 
         return dto;
     }

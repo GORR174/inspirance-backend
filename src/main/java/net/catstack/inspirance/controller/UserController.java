@@ -25,7 +25,7 @@ public interface UserController {
     @GetMapping("/getMyProfile")
     AdapterResponse<GetMyProfileResponseDTO> getMyProfile();
 
-    @Operation(summary = "Устронавливает описание профиля текущего пользователя", tags = TAG)
+    @Operation(summary = "Устанавливает описание профиля текущего пользователя", tags = TAG)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешный ответ")
     })

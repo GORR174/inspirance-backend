@@ -4,6 +4,7 @@ import lombok.Data;
 import net.catstack.inspirance.domain.dto.response.awards.AwardResponseDTO;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class GetMyProfileResponseDTO {
@@ -16,4 +17,5 @@ public class GetMyProfileResponseDTO {
     private int followingCount;
     private List<AwardResponseDTO> awards;
     private int likes;
+    private Set<String> roles;
 }

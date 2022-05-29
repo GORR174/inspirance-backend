@@ -12,6 +12,8 @@ import net.catstack.inspirance.service.AuthenticationService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -19,8 +21,8 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @Override
-    public AdapterResponse<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO) {
-        log.info("Register User: Register request: Username: {}", requestDTO.getUsername());
+    public AdapterResponse<RegisterResponseDTO> register(@Valid @RequestBody RegisterRequestDTO requestDTO) {
+        log.info("Register User: Register request: Email: {}", requestDTO.getEmail());
         var user = authenticationService.register(requestDTO);
 
         var response = new RegisterResponseDTO();
@@ -32,10 +34,10 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public AdapterResponse<LoginResponseDTO> login(@RequestBody LoginRequestDTO requestDTO) {
-        log.info("Login User: Trying login with username: {}", requestDTO.getUsername());
+    public AdapterResponse<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO requestDTO) {
+        log.info("Login User: Trying login with email: {}", requestDTO.getEmail());
         var loginResponse = authenticationService.loginAndGetToken(requestDTO);
-        log.info("Login User: User '{}' login successful", requestDTO.getUsername());
+        log.info("Login User: User '{}' login successful", requestDTO.getEmail());
         return new AdapterResponse<>(loginResponse);
     }
 }

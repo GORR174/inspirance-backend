@@ -15,6 +15,7 @@ public class UserModel extends BaseEntity {
     private String username;
     private String password;
     private String firstName;
+    private String lastName;
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)

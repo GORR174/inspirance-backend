@@ -3,6 +3,7 @@ package net.catstack.inspirance.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.catstack.inspirance.component.enums.Categories;
+import net.catstack.inspirance.domain.model.CategoryModel;
 import net.catstack.inspirance.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,9 @@ public class CategoriesService {
         Arrays.stream(Categories.values())
                 .map(Categories::getCategoryName)
                 .forEach(repository::addIfNotExists);
+    }
+
+    public CategoryModel getCategoryById(final long id) {
+        return repository.getById(id);
     }
 }

@@ -2,16 +2,24 @@ package net.catstack.inspirance.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import net.catstack.inspirance.component.enums.Roles;
 import net.catstack.inspirance.domain.dto.response.AdapterResponse;
 import net.catstack.inspirance.exception.JwtAuthenticationException;
 import net.catstack.inspirance.security.JwtConfigurer;
 import net.catstack.inspirance.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @RequiredArgsConstructor
@@ -48,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/actuator/**").permitAll()
                     .antMatchers(LOGIN_ENDPOINT, REGISTER_ENDPOINT).permitAll()
                     .antMatchers(CATEGORIES_ENDPOINT, THEMES_ENDPOINT).permitAll()
-                    .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                    .antMatchers(ADMIN_ENDPOINT).hasAuthority(Roles.ADMIN.getRoleName())
                 .anyRequest()
                     .authenticated()
                     .and()
@@ -59,6 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         var exception = new JwtAuthenticationException("Unauthorized");
                         httpServletResponse.getWriter().write(mapper.writeValueAsString(AdapterResponse.fromException(exception)));
                     })
+                .accessDeniedHandler((httpServletRequest, httpServletResponse, e) -> {
+                    var mapper = new ObjectMapper();
+                    httpServletResponse.setHeader("Content-Type", "application/json");
+                    var exception = new JwtAuthenticationException("Forbidden");
+                    httpServletResponse.getWriter().write(mapper.writeValueAsString(AdapterResponse.fromException(exception)));
+                })
                     .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }

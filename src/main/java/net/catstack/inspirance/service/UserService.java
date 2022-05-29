@@ -25,6 +25,11 @@ public class UserService {
         return repository.findByUsername(username);
     }
 
+    public UserModel getByEmail(final String email) {
+        log.info("Get by email: Trying to get user with email: {}", email);
+        return repository.findByEmail(email);
+    }
+
     public UserModel getById(final Long id) {
         log.info("Get by id: Trying to get user with id: {}", id);
         return repository.getById(id);

@@ -35,15 +35,14 @@ public class AuthenticationService {
 
     public LoginResponseDTO loginAndGetToken(final LoginRequestDTO requestDTO) {
         try {
-            var username = requestDTO.getUsername().toLowerCase();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDTO.getPassword()));
-            var user = userService.getByUsername(username);
-
+            var email = requestDTO.getEmail().toLowerCase();
+            var user = userService.getByEmail(email);
             if (user == null) {
                 throw new LoginException();
             }
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), requestDTO.getPassword()));
 
-            var token = jwtTokenProvider.createToken(username, user.getRoles());
+            var token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
             var response = new LoginResponseDTO();
             response.setAccessToken(token);
 
@@ -54,15 +53,14 @@ public class AuthenticationService {
     }
 
     public UserModel register(final RegisterRequestDTO requestDTO) {
-        if (userService.getByUsername(requestDTO.getUsername().toLowerCase()) != null) {
-            throw new UserAlreadyExistsException(requestDTO.getUsername());
+        if (userService.getByEmail(requestDTO.getEmail().toLowerCase()) != null) {
+            throw new UserAlreadyExistsException(requestDTO.getEmail());
         }
         var roleUser = roleRepository.findByName(Roles.USER.getRoleName());
         var userRoles = new HashSet<RoleModel>();
         userRoles.add(roleUser);
 
         var user = new UserModel();
-        user.setUsername(requestDTO.getUsername().toLowerCase());
         user.setFirstName(requestDTO.getFirstName());
         user.setEmail(requestDTO.getEmail());
 
@@ -70,6 +68,8 @@ public class AuthenticationService {
         user.setRoles(userRoles);
 
         var registeredUser = repository.save(user);
+        registeredUser.setUsername("id" + registeredUser.getId());
+        registeredUser = repository.save(registeredUser);
 
         log.info("User register: User {} successfully registered", registeredUser.getUsername());
 
