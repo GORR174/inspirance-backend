@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "tasks")
-public class TaskModel extends CompletedWorkModel {
+public class TaskModel extends BaseEntity {
     @ManyToOne
     private CategoryModel category;
     @ManyToOne
