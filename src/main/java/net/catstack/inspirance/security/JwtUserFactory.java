@@ -1,6 +1,6 @@
 package net.catstack.inspirance.security;
 
-import net.catstack.inspirance.domain.model.Role;
+import net.catstack.inspirance.domain.model.RoleModel;
 import net.catstack.inspirance.domain.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +23,7 @@ public class JwtUserFactory {
         return jwtUser;
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(final Set<Role> userRoles) {
+    private static List<GrantedAuthority> mapToGrantedAuthorities(final Set<RoleModel> userRoles) {
         return userRoles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());

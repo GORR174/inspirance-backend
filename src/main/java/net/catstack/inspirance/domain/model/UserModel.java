@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class UserModel extends BaseEntity {
     @JoinTable(name = "user_roles",
             joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-    private Set<Role> roles;
+    private Set<RoleModel> roles;
 
     private String imageUrl;
     private String description;
@@ -39,7 +38,7 @@ public class UserModel extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<CompletedWorkModel> completedWorks;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "applicants")
     private List<TaskModel> tasks;
 
     @OneToMany(fetch = FetchType.LAZY)

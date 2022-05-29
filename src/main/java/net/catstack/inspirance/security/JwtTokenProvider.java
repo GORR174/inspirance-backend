@@ -3,7 +3,7 @@ package net.catstack.inspirance.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import net.catstack.inspirance.domain.model.Role;
+import net.catstack.inspirance.domain.model.RoleModel;
 import net.catstack.inspirance.exception.JwtAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
-    public String createToken(final String username, Set<Role> roles) {
+    public String createToken(final String username, Set<RoleModel> roles) {
         var claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(roles));
 
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private List<String> getRoleNames(Set<Role> userRoles) {
+    private List<String> getRoleNames(Set<RoleModel> userRoles) {
         var result = new ArrayList<String>();
 
         userRoles.forEach(role -> result.add(role.getName()));

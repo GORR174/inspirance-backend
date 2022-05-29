@@ -8,11 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 @Data
-public class Role extends BaseEntity {
-    public static final String ROLE_USER = "role_user";
-    public static final String ROLE_ADMIN = "role_admin";
-    public static final String ROLE_MODERATOR = "role_moderator";
-
+public class RoleModel extends BaseEntity {
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)

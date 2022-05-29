@@ -6,7 +6,7 @@ import net.catstack.inspirance.controller.UserController;
 import net.catstack.inspirance.domain.dto.request.SetProfileDescriptionRequestDTO;
 import net.catstack.inspirance.domain.dto.response.AdapterResponse;
 import net.catstack.inspirance.domain.dto.response.GetMyProfileResponseDTO;
-import net.catstack.inspirance.domain.dto.response.SetProfileDescriptionResponseDto;
+import net.catstack.inspirance.domain.dto.response.SetProfileDescriptionResponseDTO;
 import net.catstack.inspirance.service.adapter.GetMyProfileAdapterService;
 import net.catstack.inspirance.service.adapter.SetProfileDescriptionService;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +29,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public AdapterResponse<SetProfileDescriptionResponseDto> setProfileDescription(@Valid final SetProfileDescriptionRequestDTO request) {
+    public AdapterResponse<SetProfileDescriptionResponseDTO> setProfileDescription(@Valid final SetProfileDescriptionRequestDTO request) {
         log.info("Set profile description: Request: {}", request);
         var response = setProfileDescriptionService.setProfileDescription(request);
         log.info("Set profile description: Response: {}", response);

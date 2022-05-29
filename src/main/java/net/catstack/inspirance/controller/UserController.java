@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.catstack.inspirance.domain.dto.request.SetProfileDescriptionRequestDTO;
 import net.catstack.inspirance.domain.dto.response.AdapterResponse;
 import net.catstack.inspirance.domain.dto.response.GetMyProfileResponseDTO;
-import net.catstack.inspirance.domain.dto.response.SetProfileDescriptionResponseDto;
+import net.catstack.inspirance.domain.dto.response.SetProfileDescriptionResponseDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,5 +30,5 @@ public interface UserController {
             @ApiResponse(responseCode = "200", description = "Успешный ответ")
     })
     @PostMapping("/setDescription")
-    AdapterResponse<SetProfileDescriptionResponseDto> setProfileDescription(@RequestBody SetProfileDescriptionRequestDTO request);
+    AdapterResponse<SetProfileDescriptionResponseDTO> setProfileDescription(@RequestBody SetProfileDescriptionRequestDTO request);
 }

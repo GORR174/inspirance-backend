@@ -2,10 +2,11 @@ package net.catstack.inspirance.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.catstack.inspirance.component.enums.Roles;
 import net.catstack.inspirance.domain.dto.request.LoginRequestDTO;
 import net.catstack.inspirance.domain.dto.request.RegisterRequestDTO;
 import net.catstack.inspirance.domain.dto.response.LoginResponseDTO;
-import net.catstack.inspirance.domain.model.Role;
+import net.catstack.inspirance.domain.model.RoleModel;
 import net.catstack.inspirance.domain.model.UserModel;
 import net.catstack.inspirance.exception.LoginException;
 import net.catstack.inspirance.exception.UserAlreadyExistsException;
@@ -56,8 +57,8 @@ public class AuthenticationService {
         if (userService.getByUsername(requestDTO.getUsername().toLowerCase()) != null) {
             throw new UserAlreadyExistsException(requestDTO.getUsername());
         }
-        var roleUser = roleRepository.findByName("ROLE_USER");
-        var userRoles = new HashSet<Role>();
+        var roleUser = roleRepository.findByName(Roles.USER.getRoleName());
+        var userRoles = new HashSet<RoleModel>();
         userRoles.add(roleUser);
 
         var user = new UserModel();
