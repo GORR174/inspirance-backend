@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestResponseExceptionHandler {
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<AdapterResponse> handle(Exception e) {
+        e.printStackTrace();
         log.info("Exception: " + e.toString());
         var response = new AdapterResponse<>();
 
