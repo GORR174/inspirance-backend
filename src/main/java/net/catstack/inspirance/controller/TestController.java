@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import net.catstack.inspirance.domain.MessageModel;
+import net.catstack.inspirance.domain.dto.request.SendMessageRequestDTO;
+import net.catstack.inspirance.domain.dto.response.AdapterResponse;
+import net.catstack.inspirance.domain.model.MessageModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +25,12 @@ public interface TestController {
             @ApiResponse(responseCode = "200", description = "Успешный ответ")
     })
     @GetMapping("/getMessages")
-    List<MessageModel> getMessages();
+    AdapterResponse<List<MessageModel>> getMessages();
 
     @Operation(summary = "Отправляет сообщение", tags = TAG)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешный ответ")
     })
     @PostMapping("/sendMessage")
-    String sendMessage(@ApiParam(value = "Сообщение для отправки") @RequestBody MessageModel message);
+    AdapterResponse<String> sendMessage(@ApiParam(value = "Сообщение для отправки") @RequestBody SendMessageRequestDTO request);
 }
